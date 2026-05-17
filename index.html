@@ -485,6 +485,17 @@ body.auth-locked { overflow: hidden; }
         <button class="admin-close" onclick="closeAdmin()">✕</button>
       </div>
 
+      <!-- API KEY SECTION -->
+      <div style="margin-bottom:20px;padding:14px 16px;background:rgba(255,200,50,0.06);border-radius:12px;border:1px solid rgba(255,200,50,0.15);">
+        <label style="display:block;font-size:11px;font-weight:600;letter-spacing:1px;color:#f6c90e;text-transform:uppercase;margin-bottom:8px;">🔑 Anthropic API Key</label>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input type="password" id="api-key-input" placeholder="sk-ant-..." oninput="saveApiKey(this.value)"
+            style="flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 14px;color:#e2e8f0;font-size:14px;outline:none;" />
+          <span id="api-key-status" style="font-size:20px;">🔒</span>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px;">Visível apenas para o administrador. Salva no navegador.</div>
+      </div>
+
       <div class="admin-body">
 
         <!-- PLAN TABS -->
@@ -628,15 +639,7 @@ body.auth-locked { overflow: hidden; }
   <div id="screen-correlacao" class="screen">
     <div class="section-title">Correlação Clínica por IA</div>
     <div class="section-sub">Selecione um procedimento e um exame alterado. A IA irá analisar o risco clínico e indicar a conduta.</div>
-    <div style="margin-bottom:16px;padding:14px 16px;background:rgba(255,255,255,0.04);border-radius:12px;border:1px solid rgba(255,255,255,0.08);">
-      <label style="display:block;font-size:11px;font-weight:600;letter-spacing:1px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;">🔑 Anthropic API Key</label>
-      <div style="display:flex;gap:8px;align-items:center;">
-        <input type="password" id="api-key-input" placeholder="sk-ant-..." oninput="saveApiKey(this.value)"
-          style="flex:1;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 14px;color:#e2e8f0;font-size:14px;outline:none;" />
-        <span id="api-key-status" style="font-size:20px;">🔒</span>
-      </div>
-      <div style="font-size:11px;color:var(--muted);margin-top:6px;">A chave é salva apenas no seu navegador (localStorage).</div>
-    </div>
+
     <div class="corr-grid">
       <div class="select-wrap"><label>Procedimento Estético</label><select class="corr-select" id="sel-proc"><option value="">Selecione...</option></select><span class="select-arrow">▾</span></div>
       <div class="select-wrap"><label>Exame Alterado</label><select class="corr-select" id="sel-exame"><option value="">Selecione...</option></select><span class="select-arrow">▾</span></div>
@@ -2392,6 +2395,8 @@ let adminUnlocked = false;
 // ─────────────────────────────────────────────────────────────────
 //  INICIALIZAÇÃO
 // ─────────────────────────────────────────────────────────────────
+window._AK = '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';
+
 function saveApiKey(val) {
   window._AK = val.trim();
   localStorage.setItem('_anthropic_key', window._AK);
